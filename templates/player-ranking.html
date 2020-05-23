@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Player ranking
+{% endblock %}
+
+{% block main %}
+    <h1>Player ranking</h1>
+    <h6>Note: Table is sortable. Click table header to sort.</h6>
+    <table class="table table-striped sortable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Win</th>
+                <th>Draw</th>
+                <th>Lose</th>
+                <th># of games</th>
+                <th>Total</th>
+                <th>Average</th>
+                <th>Win %</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for player in players %}
+            <tr>
+                <td>{{ player.name }}</td>
+                <td>{{ player.w }}</td>
+                <td>{{ player.d }}</td>
+                <td>{{ player.l }}</td>
+                <td>{{ player.w + player.d + player.l }}</td>
+                <td>{{ ((player.w * 3) + (player.d * 1)) }}</td>
+                <td>{% if player.w + player.d + player.l != 0 %}
+                    {{'%0.2f' | format(((player.w * 3) + (player.d * 1)) / (player.w + player.d + player.l)|float) }}
+                    {% else %}
+                    {{ 0 }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if player.w + player.d + player.l != 0 %}
+                    {{'%0.2f' | format((player.w / (player.w + player.d + player.l)) * 100|float) }}
+                    {% else %}
+                    {{ 0 }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

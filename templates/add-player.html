@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Player list
+{% endblock %}
+
+{% block main %}
+    <h2>Add new player</h2>
+    <form action="/add-player" method="POST">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="player_name" placeholder="Insert new player name..." type="text" required/>
+        </div>
+        <button class="btn btn-primary" type="submit">Add player</button>
+    </form>
+{% endblock %}

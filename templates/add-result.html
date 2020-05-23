@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add result
+{% endblock %}
+
+{% block main %}
+    <h1>Add result</h1>
+    <p>TODO: Add drop down list for players and submit button for inserting new result.</p>
+    <p>Match type:</p>
+    <form>
+        <input type="radio" id="solo" name="match_type" value="solo" checked>
+        <label for="solo">Solo</label>
+
+        <input type="radio" id="team" name="match_type" value="team">
+        <label for="team">Team</label>
+
+        <br>
+
+        <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                
+                <label for="t1p1">Select team 1 player 1:</label>
+
+                <select name="t1p1" id="t1p1" class="select">
+                    <option value="" disabled selected>Select a player</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{player.name}}</option>
+                    {% endfor %}
+                </select>
+                
+                <p></p>
+
+                <label for="t1p2">Select team 1 player 2:</label>
+
+                <select name="t1p2" id="t1p2" class="select" disabled>
+                    <option value="" disabled selected>Select a player</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{player.name}}</option>
+                    {% endfor %}
+                </select>
+
+                <p></p>
+
+                <button class="btn btn-primary" type="submit" formaction="/t1-win">Team 1 win</button>
+
+              </div>
+              <div class="col-sm">
+                <p class="text-center"><b>VS</b></p>
+                <button style="margin-left: 40%;" class="btn btn-primary" type="submit" formaction="/draw">Draw</button>
+              </div>
+              <div class="col-sm">
+                
+                <label for="t2p1" >Select team 2 player 1:</label>
+
+                <select name="t2p1" id="t2p1" class="select">
+                    <option value="" disabled selected>Select a player</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{player.name}}</option>
+                    {% endfor %}
+                </select>
+
+                <p></p>
+
+                <label for="t2p2" >Select team 2 player 2:</label>
+
+                <select name="t2p2" id="t2p2" class="select" disabled >
+                    <option value="" disabled selected>Select a player</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{player.name}}</option>
+                    {% endfor %}
+                </select>
+        
+                <p></p>
+
+                <button class="btn btn-primary" type="submit" formaction="/t2-win">Team 2 win</button>
+                
+              </div>
+            </div>
+          </div>
+
+        
+        
+        
+    </form>
+    <script>
+        //if team radio button is clicked, enable the other 2 selects
+        document.querySelector('#team').onclick = function(){
+            document.querySelector('#t1p2').disabled = false;
+            document.querySelector('#t2p2').disabled = false;
+        }
+
+        //disable the two selects if solo
+        document.querySelector('#solo').onclick = function(){
+            document.querySelector('#t1p2').disabled = true;
+            document.querySelector('#t1p2').value = '';
+            document.querySelector('#t2p2').disabled = true;
+            document.querySelector('#t2p2').value = '';
+        }
+
+        //code obtained from https://stackoverflow.com/questions/15732953/prevent-selecting-the-same-option-from-a-different-select-box
+        $('select').change(function() {
+            var myOpt = [];
+            $("select").each(function () {
+                myOpt.push($(this).val());
+            });
+            $("select").each(function () {
+                $(this).find("option").prop('hidden', false);
+                var sel = $(this);
+                $.each(myOpt, function(key, value) {
+                    if((value != "") && (value != sel.val())) {
+                        sel.find("option").filter('[value="' + value +'"]').prop('hidden', true);
+                    }
+                });
+            });
+        });
+    </script>
+    
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Main page
+{% endblock %}
+
+{% block main %}
+    <h1>Welcome to <span style="color:#45b43c">Kickeridoo50</span></h1>
+    <p>This is an application for keeping track of scores of Kicker played. The explanation of each feature are explained below:</p>
+    <h2><a href="/add-result" style="color:#45b43c">Add result</a></h2>
+    <p>This page allows new result from a match to be added.</p>
+    <h2><a href="/add-player" style="color:#45b43c">Add player</a></h2>
+    <p>This page allows the user to add new player.</p>
+    <h2><a href="/player-ranking" style="color:#45b43c">Player ranking</a></h2>
+    <p>This page shows the ranking of each player.</p>
+    <h2><a href="/team-ranking" style="color:#45b43c">Team ranking</a></h2>
+    <p>This page shows the ranking of each team.</p>    
+{% endblock %}
