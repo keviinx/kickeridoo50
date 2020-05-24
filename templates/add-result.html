@@ -8,7 +8,7 @@
     <h1>Add result</h1>
     <p>TODO: Add drop down list for players and submit button for inserting new result.</p>
     <p>Match type:</p>
-    <form>
+    <form method="POST">
         <input type="radio" id="solo" name="match_type" value="solo" checked>
         <label for="solo">Solo</label>
 
@@ -23,7 +23,7 @@
                 
                 <label for="t1p1">Select team 1 player 1:</label>
 
-                <select name="t1p1" id="t1p1" class="select">
+                <select name="t1p1" id="t1p1" class="select" required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
                     <option value="{{ player.id }}">{{player.name}}</option>
@@ -34,7 +34,7 @@
 
                 <label for="t1p2">Select team 1 player 2:</label>
 
-                <select name="t1p2" id="t1p2" class="select" disabled>
+                <select name="t1p2" id="t1p2" class="select" disabled required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
                     <option value="{{ player.id }}">{{player.name}}</option>
@@ -54,7 +54,7 @@
                 
                 <label for="t2p1" >Select team 2 player 1:</label>
 
-                <select name="t2p1" id="t2p1" class="select">
+                <select name="t2p1" id="t2p1" class="select" required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
                     <option value="{{ player.id }}">{{player.name}}</option>
@@ -65,7 +65,7 @@
 
                 <label for="t2p2" >Select team 2 player 2:</label>
 
-                <select name="t2p2" id="t2p2" class="select" disabled >
+                <select name="t2p2" id="t2p2" class="select" disabled required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
                     <option value="{{ player.id }}">{{player.name}}</option>
