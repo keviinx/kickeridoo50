@@ -4,8 +4,7 @@
 
 The name **Kickeridoo** came to be by fusing the word **Kicker** which is the German nickname of *foosball* and Didger**idoo** *(No idea how we came up with that name)*. Me and my colleague loves to play foosball during our break time and to keep track of the scores, I have been using spreadsheet. 
 
-![Kickeridoo spreadsheet]
-(https://user-images.githubusercontent.com/60583511/82753669-a590bb80-9dc7-11ea-9267-baab264ba237.png)
+![Kickeridoo spreadsheet](https://user-images.githubusercontent.com/60583511/82753669-a590bb80-9dc7-11ea-9267-baab264ba237.png)
 
 So then I had the idea of making a web application so that updating the score of the player will be easier. The application is called **Kickeridoo50**.
 
@@ -39,5 +38,12 @@ This page displays the ranking of each player. The result is displayed in alphab
 
 This page displays the ranking of teams. The result displayed is similar to **Player ranking** page. The result is sorted alphabetically for Player 1. The result can also be sorted by clicking the table header.
 
-![Team ranking user interface]
-(https://user-images.githubusercontent.com/60583511/82758294-f44d4e00-9de5-11ea-969a-167a79e15c27.png)
+![Team ranking user interface](https://user-images.githubusercontent.com/60583511/82758294-f44d4e00-9de5-11ea-969a-167a79e15c27.png)
+
+## Implmentation
+
+The application was developed using `bootstrap` and `flask`.
+
+## Setting up and running it
+
+Just clone the repo, then `export FLASK_APP=application.py` and finally `flask run`.
