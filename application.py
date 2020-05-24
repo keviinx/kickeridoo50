@@ -33,8 +33,8 @@ def t1_win():
             t1p1 = request.form.get("t1p1")
             t2p1 = request.form.get("t2p1")
             #update data in database
-            db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t1p1)
-            db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t2p1)
+            update_player_result("w",t1p1)
+            update_player_result("l",t2p1)
             #flash message
             flash("Result added!")
         #game type was team    
@@ -45,33 +45,33 @@ def t1_win():
             t2p1 = request.form.get("t2p1")
             t2p2 = request.form.get("t2p2")
             #rearrange the id of the player alphabetically
-            t1order = db.execute("SELECT id FROM players WHERE id = (:t1p1id) OR id = (:t1p2id) ORDER BY name ASC", t1p1id=t1p1, t1p2id=t1p2)
-            t2order = db.execute("SELECT id FROM players WHERE id = (:t2p1id) OR id = (:t2p2id) ORDER BY name ASC", t2p1id=t2p1, t2p2id=t2p2)
+            t1order = reorder_team(t1p1,t1p2)
+            t2order = reorder_team(t2p1,t2p2)
             #check if any team already created
-            t1teamcheck = db.execute("SELECT * FROM teams WHERE p1_id = (:t1p1id) AND p2_id = (:t1p2id)", t1p1id=t1order[0]['id'], t1p2id=t1order[1]['id'])
-            t2teamcheck = db.execute("SELECT * FROM teams WHERE p1_id = (:t2p1id) AND p2_id = (:t2p2id)", t2p1id=t2order[0]['id'], t2p2id=t2order[1]['id'])
+            t1teamcheck = team_exist_check(t1order[0]['id'], t1order[1]['id'])
+            t2teamcheck = team_exist_check(t2order[0]['id'], t2order[1]['id'])
             #team 1 check
             #if not found
             if len(t1teamcheck) == 0:
-                db.execute("INSERT INTO teams (p1_id, p2_id, w) VALUES ((:p1_id),(:p2_id),(:w))", p1_id=t1order[0]['id'], p2_id=t1order[1]['id'], w=1)
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t1order[0]['id'])
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t1order[1]['id'])
+                insert_team("w", t1order[0]['id'], t1order[1]['id'])
+                update_player_result("w",t1order[0]['id'])
+                update_player_result("w",t1order[1]['id'])
             #if found
             else:
-                db.execute("UPDATE teams SET w = w + 1 WHERE p1_id = (:p1_id) AND p2_id = (:p2_id)", p1_id=t1order[0]['id'], p2_id=t1order[1]['id'])
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t1order[0]['id'])
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t1order[1]['id'])
+                update_team_result("w", t1order[0]['id'], t1order[1]['id'])
+                update_player_result("w",t1order[0]['id'])
+                update_player_result("w",t1order[1]['id'])
             #team 2 check
             # if not found
             if len(t2teamcheck) == 0:
-                db.execute("INSERT INTO teams (p1_id, p2_id, l) VALUES ((:p1_id),(:p2_id),(:l))", p1_id=t2order[0]['id'], p2_id=t2order[1]['id'], l=1)
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t2order[0]['id'])
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t2order[1]['id'])
+                insert_team("l", t2order[0]['id'], t2order[1]['id'])
+                update_player_result("l",t2order[0]['id'])
+                update_player_result("l",t2order[1]['id'])
             #if found
             else:
-                db.execute("UPDATE teams SET l = l + 1 WHERE p1_id = (:p1_id) AND p2_id = (:p2_id)", p1_id=t2order[0]['id'], p2_id=t2order[1]['id'])
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t2order[0]['id'])
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t2order[1]['id'])
+                update_team_result("l", t2order[0]['id'], t2order[1]['id'])
+                update_player_result("l",t2order[0]['id'])
+                update_player_result("l",t2order[1]['id'])
               
             flash("Result added!")
     
@@ -87,8 +87,8 @@ def draw():
             t1p1 = request.form.get("t1p1")
             t2p1 = request.form.get("t2p1")
             #update data in database
-            db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t1p1)
-            db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t2p1)
+            update_player_result("d",t1p1)
+            update_player_result("d",t2p1)
             #flash message
             flash("Result added!")
             
@@ -100,33 +100,33 @@ def draw():
             t2p1 = request.form.get("t2p1")
             t2p2 = request.form.get("t2p2")
             #rearrange the id of the player alphabetically
-            t1order = db.execute("SELECT id FROM players WHERE id = (:t1p1id) OR id = (:t1p2id) ORDER BY name ASC", t1p1id=t1p1, t1p2id=t1p2)
-            t2order = db.execute("SELECT id FROM players WHERE id = (:t2p1id) OR id = (:t2p2id) ORDER BY name ASC", t2p1id=t2p1, t2p2id=t2p2)
+            t1order = reorder_team(t1p1,t1p2)
+            t2order = reorder_team(t2p1,t2p2)
             #check if any team already created
-            t1teamcheck = db.execute("SELECT * FROM teams WHERE p1_id = (:t1p1id) AND p2_id = (:t1p2id)", t1p1id=t1order[0]['id'], t1p2id=t1order[1]['id'])
-            t2teamcheck = db.execute("SELECT * FROM teams WHERE p1_id = (:t2p1id) AND p2_id = (:t2p2id)", t2p1id=t2order[0]['id'], t2p2id=t2order[1]['id'])
+            t1teamcheck = team_exist_check(t1order[0]['id'], t1order[1]['id'])
+            t2teamcheck = team_exist_check(t2order[0]['id'], t2order[1]['id'])
             #team 1 check
             #if not found
             if len(t1teamcheck) == 0:
-                db.execute("INSERT INTO teams (p1_id, p2_id, d) VALUES ((:p1_id),(:p2_id),(:d))", p1_id=t1order[0]['id'], p2_id=t1order[1]['id'], d=1)
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t1order[0]['id'])
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t1order[1]['id'])
+                insert_team("d", t1order[0]['id'], t1order[1]['id'])
+                update_player_result("d",t1order[0]['id'])
+                update_player_result("d",t1order[1]['id'])
             #if found
             else:
-                db.execute("UPDATE teams SET d = d + 1 WHERE p1_id = (:p1_id) AND p2_id = (:p2_id)", p1_id=t1order[0]['id'], p2_id=t1order[1]['id'])
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t1order[0]['id'])
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t1order[1]['id'])
+                update_team_result("d", t1order[0]['id'], t1order[1]['id'])
+                update_player_result("d",t1order[0]['id'])
+                update_player_result("d",t1order[1]['id'])
             #team 2 check
             # if not found
             if len(t2teamcheck) == 0:
-                db.execute("INSERT INTO teams (p1_id, p2_id, d) VALUES ((:p1_id),(:p2_id),(:d))", p1_id=t2order[0]['id'], p2_id=t2order[1]['id'], d=1)
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t2order[0]['id'])
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t2order[1]['id'])
+                insert_team("d", t2order[0]['id'], t2order[1]['id'])
+                update_player_result("d",t2order[0]['id'])
+                update_player_result("d",t2order[1]['id'])
             #if found
             else:
-                db.execute("UPDATE teams SET d = d + 1 WHERE p1_id = (:p1_id) AND p2_id = (:p2_id)", p1_id=t2order[0]['id'], p2_id=t2order[1]['id'])
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t2order[0]['id'])
-                db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=t2order[1]['id'])
+                update_team_result("d", t2order[0]['id'], t2order[1]['id'])
+                update_player_result("d",t2order[0]['id'])
+                update_player_result("d",t2order[1]['id'])
               
             flash("Result added!")
 
@@ -142,8 +142,8 @@ def t2_win():
             t1p1 = request.form.get("t1p1")
             t2p1 = request.form.get("t2p1")
             #update data in database
-            db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t1p1)
-            db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t2p1)
+            update_player_result("l",t1p1)
+            update_player_result("w",t2p1)
             #flash message
             flash("Result added!")
             
@@ -155,33 +155,33 @@ def t2_win():
             t2p1 = request.form.get("t2p1")
             t2p2 = request.form.get("t2p2")
             #rearrange the id of the player alphabetically
-            t1order = db.execute("SELECT id FROM players WHERE id = (:t1p1id) OR id = (:t1p2id) ORDER BY name ASC", t1p1id=t1p1, t1p2id=t1p2)
-            t2order = db.execute("SELECT id FROM players WHERE id = (:t2p1id) OR id = (:t2p2id) ORDER BY name ASC", t2p1id=t2p1, t2p2id=t2p2)
+            t1order = reorder_team(t1p1,t1p2)
+            t2order = reorder_team(t2p1,t2p2)
             #check if any team already created
-            t1teamcheck = db.execute("SELECT * FROM teams WHERE p1_id = (:t1p1id) AND p2_id = (:t1p2id)", t1p1id=t1order[0]['id'], t1p2id=t1order[1]['id'])
-            t2teamcheck = db.execute("SELECT * FROM teams WHERE p1_id = (:t2p1id) AND p2_id = (:t2p2id)", t2p1id=t2order[0]['id'], t2p2id=t2order[1]['id'])
+            t1teamcheck = team_exist_check(t1order[0]['id'], t1order[1]['id'])
+            t2teamcheck = team_exist_check(t2order[0]['id'], t2order[1]['id'])
             #team 1 check
             #if not found
             if len(t1teamcheck) == 0:
-                db.execute("INSERT INTO teams (p1_id, p2_id, l) VALUES ((:p1_id),(:p2_id),(:l))", p1_id=t1order[0]['id'], p2_id=t1order[1]['id'], l=1)
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t1order[0]['id'])
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t1order[1]['id'])
+                insert_team("l", t1order[0]['id'], t1order[1]['id'])
+                update_player_result("l",t1order[0]['id'])
+                update_player_result("l",t1order[1]['id'])
             #if found
             else:
-                db.execute("UPDATE teams SET l = l + 1 WHERE p1_id = (:p1_id) AND p2_id = (:p2_id)", p1_id=t1order[0]['id'], p2_id=t1order[1]['id'])
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t1order[0]['id'])
-                db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=t1order[1]['id'])
+                update_team_result("l", t1order[0]['id'], t1order[1]['id'])
+                update_player_result("l",t1order[0]['id'])
+                update_player_result("l",t1order[1]['id'])
             #team 2 check
             # if not found
             if len(t2teamcheck) == 0:
-                db.execute("INSERT INTO teams (p1_id, p2_id, w) VALUES ((:p1_id),(:p2_id),(:w))", p1_id=t2order[0]['id'], p2_id=t2order[1]['id'], w=1)
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t2order[0]['id'])
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t2order[1]['id'])
+                insert_team("w", t2order[0]['id'], t2order[1]['id'])
+                update_player_result("w",t2order[0]['id'])
+                update_player_result("w",t2order[1]['id'])
             #if found
             else:
-                db.execute("UPDATE teams SET w = w + 1 WHERE p1_id = (:p1_id) AND p2_id = (:p2_id)", p1_id=t2order[0]['id'], p2_id=t2order[1]['id'])
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t2order[0]['id'])
-                db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=t2order[1]['id'])
+                update_team_result("w", t2order[0]['id'], t2order[1]['id'])
+                update_player_result("w",t2order[0]['id'])
+                update_player_result("w",t2order[1]['id'])
               
             flash("Result added!")
 
@@ -228,3 +228,23 @@ def errorhandler(e):
 # listen for errors
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
+
+#function for updating player result
+def update_player_result(result, id):
+    db.execute("UPDATE players SET (:result) = (:result) + 1 WHERE id = (:id)", result=result, id=id)
+
+#function for rearranging player alphabetically
+def reorder_team(player1id, player2id):
+    return db.execute("SELECT id FROM players WHERE id = (:player1id) OR id = (:player2id) ORDER BY name ASC", player1id=player1id, player2id=player2id)
+
+#function for checking if the team already exist
+def team_exist_check(player1id, player2id):
+    return db.execute("SELECT * FROM teams WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
+
+#function for inserting new team into db
+def insert_team(result, player1id, player2id):
+    db.execute("INSERT INTO teams (p1_id, p2_id, :result) VALUES ((:player1id),(:player2id),1)", player1id=player1id, player2id=player2id, result=result)
+
+# function for updating team result
+def update_team_result(result, player1id, player2id):
+    db.execute("UPDATE teams SET (:result) = (:result) + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", result=result, player1id=player1id, player2id=player2id)
