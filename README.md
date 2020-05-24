@@ -1,5 +1,17 @@
 # Kickeridoo50
 
+## Table of contents
+
+* [About Kickeridoo50](#about-kickeridoo50)
+* [Kickeridoo50 features](#kickeridoo50-features)
+  * [Main page](#main-page)
+  * [Add result](#add-result)
+  * [Add player](#add-player)
+  * [Player ranking](#player-ranking)
+  * [Team ranking](#team-ranking)
+* [Implementation](#implementation)
+* [Setting up and running it](#setting-up-and-running-it)
+
 ## About Kickeridoo50
 
 The name **Kickeridoo** came to be by fusing the word **Kicker** which is the German nickname of *foosball* and Didger**idoo** *(No idea how we came up with that name)*. Me and my colleague loves to play foosball during our break time and to keep track of the scores, I have been using spreadsheet. 
@@ -40,7 +52,7 @@ This page displays the ranking of teams. The result displayed is similar to **Pl
 
 ![Team ranking user interface](https://user-images.githubusercontent.com/60583511/82758294-f44d4e00-9de5-11ea-969a-167a79e15c27.png)
 
-## Implmentation
+## Implementation
 
 The application was developed using `bootstrap` and `flask`.
 
