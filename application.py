@@ -231,7 +231,12 @@ for code in default_exceptions:
 
 #function for updating player result
 def update_player_result(result, id):
-    db.execute("UPDATE players SET (:result) = (:result) + 1 WHERE id = (:id)", result=result, id=id)
+    if result == "w":
+        db.execute("UPDATE players SET w = w + 1 WHERE id = (:id)", id=id)
+    elif result == "d":
+        db.execute("UPDATE players SET d = d + 1 WHERE id = (:id)", id=id)
+    else:
+        db.execute("UPDATE players SET l = l + 1 WHERE id = (:id)", id=id)
 
 #function for rearranging player alphabetically
 def reorder_team(player1id, player2id):
@@ -239,7 +244,7 @@ def reorder_team(player1id, player2id):
 
 #function for checking if the team already exist
 def team_exist_check(player1id, player2id):
-    return db.execute("SELECT * FROM teams WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
+    return db.execute("SELECT * FROM teams WHERE p1_id = :player1id AND p2_id = :player2id", player1id=player1id, player2id=player2id)
 
 #function for inserting new team into db
 def insert_team(result, player1id, player2id):
@@ -247,4 +252,9 @@ def insert_team(result, player1id, player2id):
 
 # function for updating team result
 def update_team_result(result, player1id, player2id):
-    db.execute("UPDATE teams SET (:result) = (:result) + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", result=result, player1id=player1id, player2id=player2id)
+    if result == "w":
+        db.execute("UPDATE teams SET w = w + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
+    elif result == "d":
+        db.execute("UPDATE teams SET d = d + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
+    else:
+        db.execute("UPDATE teams SET l = l + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
