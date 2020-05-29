@@ -1,5 +1,9 @@
 # Kickeridoo50
 
+# TL;DR
+
+[![CS50x Final Project: Kickeridoo50](https://img.youtube.com/vi/elE42RiLW10/0.jpg)](https://youtu.be/elE42RiLW10)
+
 ## Table of contents
 
 * [About Kickeridoo50](#about-kickeridoo50)
