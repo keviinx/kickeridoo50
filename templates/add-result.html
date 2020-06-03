@@ -19,16 +19,16 @@
         <div class="container">
             <div class="row">
               <div class="col-sm">
-                
+
                 <label for="t1p1">Select team 1 player 1:</label>
 
                 <select name="t1p1" id="t1p1" class="select" required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
-                    <option value="{{ player.id }}">{{player.name}}</option>
+                    <option value="{{ player[0] }}">{{player[1]}}</option>
                     {% endfor %}
                 </select>
-                
+
                 <p></p>
 
                 <label for="t1p2">Select team 1 player 2:</label>
@@ -36,7 +36,7 @@
                 <select name="t1p2" id="t1p2" class="select" disabled required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
-                    <option value="{{ player.id }}">{{player.name}}</option>
+                    <option value="{{ player[0] }}">{{player[1]}}</option>
                     {% endfor %}
                 </select>
 
@@ -50,13 +50,13 @@
                 <button style="margin-left: 40%;" class="btn btn-primary" type="submit" formaction="/draw">Draw</button>
               </div>
               <div class="col-sm">
-                
+
                 <label for="t2p1" >Select team 2 player 1:</label>
 
                 <select name="t2p1" id="t2p1" class="select" required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
-                    <option value="{{ player.id }}">{{player.name}}</option>
+                    <option value="{{ player[0] }}">{{player[1]}}</option>
                     {% endfor %}
                 </select>
 
@@ -67,21 +67,21 @@
                 <select name="t2p2" id="t2p2" class="select" disabled required>
                     <option value="" disabled selected>Select a player</option>
                     {% for player in players %}
-                    <option value="{{ player.id }}">{{player.name}}</option>
+                    <option value="{{ player[0] }}">{{player[1]}}</option>
                     {% endfor %}
                 </select>
-        
+
                 <p></p>
 
                 <button class="btn btn-primary" type="submit" formaction="/t2-win">Team 2 win</button>
-                
+
               </div>
             </div>
           </div>
 
-        
-        
-        
+
+
+
     </form>
     <script>
         //if team radio button is clicked, enable the other 2 selects
@@ -115,5 +115,5 @@
             });
         });
     </script>
-    
+
 {% endblock %}

@@ -24,21 +24,21 @@
         <tbody>
             {% for player in players %}
             <tr>
-                <td>{{ player.name }}</td>
-                <td>{{ player.w }}</td>
-                <td>{{ player.d }}</td>
-                <td>{{ player.l }}</td>
-                <td>{{ player.w + player.d + player.l }}</td>
-                <td>{{ ((player.w * 3) + (player.d * 1)) }}</td>
-                <td>{% if player.w + player.d + player.l != 0 %}
-                    {{'%0.2f' | format(((player.w * 3) + (player.d * 1)) / (player.w + player.d + player.l)|float) }}
+                <td>{{ player[1] }}</td>
+                <td>{{ player[2] }}</td>
+                <td>{{ player[3] }}</td>
+                <td>{{ player[4] }}</td>
+                <td>{{ player[2] + player[3] + player[4] }}</td>
+                <td>{{ ((player[2] * 3) + (player[3] * 1)) }}</td>
+                <td>{% if player[2] + player[3] + player[4] != 0 %}
+                    {{'%0.2f' | format(((player[2] * 3) + (player[3] * 1)) / (player[2] + player[3] + player[4])|float) }}
                     {% else %}
                     {{ 0 }}
                     {% endif %}
                 </td>
                 <td>
-                    {% if player.w + player.d + player.l != 0 %}
-                    {{'%0.2f' | format((player.w / (player.w + player.d + player.l)) * 100|float) }}
+                    {% if player[2] + player[3] + player[4] != 0 %}
+                    {{'%0.2f' | format((player[2] / (player[2] + player[3] + player[4])) * 100|float) }}
                     {% else %}
                     {{ 0 }}
                     {% endif %}
