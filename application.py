@@ -1,6 +1,12 @@
 from cs50 import SQL
 from flask import Flask, render_template, request, redirect, flash
 from werkzeug.exceptions import default_exceptions
+from PyQt5.QtCore import *
+from PyQt5.QtWebEngineWidgets import *
+from PyQt5.QtWidgets import QApplication
+from PyQt5 import QtGui
+from threading import Timer
+import sys
 
 from helpers import apology
 
@@ -258,3 +264,24 @@ def update_team_result(result, player1id, player2id):
         db.execute("UPDATE teams SET d = d + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
     else:
         db.execute("UPDATE teams SET l = l + 1 WHERE p1_id = (:player1id) AND p2_id = (:player2id)", player1id=player1id, player2id=player2id)
+
+
+# Define function for QtWebEngine
+def ui(location):
+    qt_app = QApplication(sys.argv)
+
+    web = QWebEngineView()
+    web.setWindowIcon(QtGui.QIcon('./static/favicon.ico'))
+    web.setWindowTitle("Kickeridoo50")
+    web.resize(800, 600)
+    #web.setZoomFactor(1.5)
+    web.load(QUrl(location))
+    web.show()
+
+    sys.exit(qt_app.exec_())
+
+
+if __name__ == "__main__":
+    # start sub-thread to open the browser.
+    Timer(1, lambda: ui("http://127.0.0.1:5000/")).start()
+    app.run()

@@ -75,7 +75,10 @@ source venv/bin/activate
 ```
 3. Install required packages either by (i) install cs50
 ```bash
+pip install wheel
 pip install cs50
+pip install PyQt5
+pip install PyQtWebEngine
 ```
 or (ii) install using the `requirements.txt`
 ```bash
