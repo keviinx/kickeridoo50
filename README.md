@@ -62,4 +62,30 @@ The application was developed using `bootstrap` and `flask`.
 
 ## Setting up and running it
 
-Just clone the repo, then `export FLASK_APP=application.py` and finally `flask run`.
+1. Just clone the repo.
+2. (Optional) create a virtual environment 
+
+On Linux:
+``` bash
+python3 -m venv venv
+```
+then activate the virtual environment
+```bash
+source venv/bin/activate
+```
+3. Install required packages either by (i) install cs50
+```bash
+pip install cs50
+```
+or (ii) install using the `requirements.txt`
+```bash
+pip install -r requirements.txt
+```
+ 4. then run 
+ ```bash
+ export FLASK_APP=application.py
+ ``` 
+ 5. and finally 
+ ```bash
+ flask run
+ ```
