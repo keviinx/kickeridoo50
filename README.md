@@ -89,3 +89,19 @@ pip install -r requirements.txt
  ```bash
  flask run
  ```
+
+## Automate starting application using bash script
+
+1. Modify the directory of kickeridoo 50 if necessary (default is `~/Github/kickeridoo50`)
+
+2. Add the script to cron by running
+```
+crontab -e
+```
+
+3. then add this line 
+```
+@reboot /home/ubuntu/Github/kickeridoo50/startup.sh
+```
+
+Now the application should start after rebooting the system.
