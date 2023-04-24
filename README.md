@@ -6,19 +6,21 @@
 
 ## Table of contents
 
-* [About Kickeridoo50](#about-kickeridoo50)
-* [Kickeridoo50 features](#kickeridoo50-features)
-  * [Main page](#main-page)
-  * [Add result](#add-result)
-  * [Add player](#add-player)
-  * [Player ranking](#player-ranking)
-  * [Team ranking](#team-ranking)
-* [Implementation](#implementation)
-* [Setting up and running it](#setting-up-and-running-it)
+- [About Kickeridoo50](#about-kickeridoo50)
+- [Kickeridoo50 features](#kickeridoo50-features)
+  - [Main page](#main-page)
+  - [Add result](#add-result)
+  - [Add player](#add-player)
+  - [Player ranking](#player-ranking)
+  - [Team ranking](#team-ranking)
+- [Implementation](#implementation)
+- [Setting up and running it](#setting-up-and-running-it)
+- [Automate starting application using bash script](#automate-starting-application-using-bash-script)
+- [Using as Docker container](#using-as-docker-container)
 
 ## About Kickeridoo50
 
-The name **Kickeridoo** came to be by fusing the word **Kicker** which is the German nickname of *foosball* and Didger**idoo** *(No idea how we came up with that name)*. Me and my colleague loves to play foosball during our break time and to keep track of the scores, I have been using spreadsheet. 
+The name **Kickeridoo** came to be by fusing the word **Kicker** which is the German nickname of _foosball_ and Didger**idoo** _(No idea how we came up with that name)_. Me and my colleague loves to play foosball during our break time and to keep track of the scores, I have been using spreadsheet.
 
 ![Kickeridoo spreadsheet](https://user-images.githubusercontent.com/60583511/82753669-a590bb80-9dc7-11ea-9267-baab264ba237.png)
 
@@ -63,45 +65,73 @@ The application was developed using `bootstrap` and `flask`.
 ## Setting up and running it
 
 1. Just clone the repo.
-2. (Optional) create a virtual environment 
+2. (Optional) create a virtual environment
 
 On Linux:
-``` bash
+
+```bash
 python3 -m venv venv
 ```
+
 then activate the virtual environment
+
 ```bash
 source venv/bin/activate
 ```
+
 3. Install required packages either by (i) install cs50
+
 ```bash
 pip install cs50
 ```
+
 or (ii) install using the `requirements.txt`
+
 ```bash
 pip install -r requirements.txt
 ```
- 4. then run 
- ```bash
- export FLASK_APP=application.py
- ``` 
- 5. and finally 
- ```bash
- flask run
- ```
+
+4.  then run
+
+```bash
+export FLASK_APP=application.py
+```
+
+5.  and finally
+
+```bash
+flask run
+```
 
 ## Automate starting application using bash script
 
 1. Modify the directory of kickeridoo 50 if necessary (default is `~/Github/kickeridoo50`)
 
 2. Add the script to cron by running
+
 ```
 crontab -e
 ```
 
-3. then add this line 
+3. then add this line
+
 ```
 @reboot /home/ubuntu/Github/kickeridoo50/startup.sh
 ```
 
 Now the application should start after rebooting the system.
+
+## Using as Docker container
+
+The docker container can be built manually by following the steps below:
+
+1. Ensure the Docker daemon is running, and is accessible by your user account
+
+2. Clone and deploy the docker app using the following commands
+
+```bash
+git clone https://github.com/keviinx/kickeridoo50.git
+cd kickeridoo50
+docker build . -t kickeridoo50
+docker run -p 5000:5000 kickeridoo50
+```
