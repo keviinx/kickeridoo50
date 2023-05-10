@@ -135,3 +135,11 @@ cd kickeridoo50
 docker build . -t kickeridoo50
 docker run -p 5000:5000 kickeridoo50
 ```
+
+## Using Docker Compose
+
+With the created docker image, you can also use docker compose to start the kickeridoo server by running the command below:
+
+```bash
+docker compose up
+```

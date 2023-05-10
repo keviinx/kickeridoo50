@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  kickeridoo:
+    image: keviinx/kickeridoo:latest
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/kickeridoo.db:/usr/src/app/kickeridoo.db
