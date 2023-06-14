@@ -4,19 +4,9 @@
 
 [![CS50x Final Project: Kickeridoo50](https://img.youtube.com/vi/elE42RiLW10/0.jpg)](https://youtu.be/elE42RiLW10)
 
-## Table of contents
+## Link to deployment on Render.com
 
-- [About Kickeridoo50](#about-kickeridoo50)
-- [Kickeridoo50 features](#kickeridoo50-features)
-  - [Main page](#main-page)
-  - [Add result](#add-result)
-  - [Add player](#add-player)
-  - [Player ranking](#player-ranking)
-  - [Team ranking](#team-ranking)
-- [Implementation](#implementation)
-- [Setting up and running it](#setting-up-and-running-it)
-- [Automate starting application using bash script](#automate-starting-application-using-bash-script)
-- [Using as Docker container](#using-as-docker-container)
+https://kickeridoo50.onrender.com/
 
 ## About Kickeridoo50
 
